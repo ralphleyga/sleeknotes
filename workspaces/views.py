@@ -13,11 +13,15 @@ class SlackHookReceiverView(SlackHelper, View):
     def post(self, request, **kwargs):
         data = request.POST
         # get the stored token
-        self.slack_token = self.current_provider().key
+
         workspace = self.get_workspace(data)
-        import pdb; pdb.set_trace()
         channel = self.get_channel(workspace, data)
         note = self.create_note(channel=channel, text=data['text'], username=data['user_name'])
-        
-        message = 'note successfully posted'
-        return HttpResponse(message)
+        slack_token = workspace.active_token()
+        self.initalize_slack_token(slack_token=slack_token)
+        self.post_message(
+            channel=note.channel.name,
+            text=note.text,
+            username=note.username.username
+        )
+        return HttpResponse('')

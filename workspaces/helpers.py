@@ -1,3 +1,4 @@
+import asyncio
 from slack import WebClient
 
 from allauth.socialaccount.models import (
@@ -9,24 +10,45 @@ from .models import (
     WorkSpace,
     WorkSpaceChannel,
     Note,
-    WorkSpaceUser
+    WorkSpaceUser,
     )
 
 class SlackHelper(object):
-    slack_token = ''
 
-    def __init__(self):
-        self.client = WebClient(token=self.slack_token)
+    def initalize_slack_token(self, slack_token=''):
+        self.client = WebClient(token=slack_token, run_async=True)
 
-    def post_message(self, channel, text):
+    def post_message(self, username, channel, text):
         """Post message as bot
         """
-        return self.client.chat_postMessage(
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        message = f'<@{username}> posted {text}'
+        chat = self.client.chat_postMessage(
                 channel=channel,
-                text=text)
+                text=message)
+        response = loop.run_until_complete(chat)
+        return response
         
     def webhook_send(self, data):
         pass
+    
+    def initialize_workspace(self, user):
+        user_slacks = user.socialaccount_set.filter(provider='slack_auth')
+
+        for user_slack in user_slacks:
+            # initialize user workspace
+            data = user_slack.extra_data
+            team_id = data['team']['id']
+            name = data['team']['name']
+            domain = data['team']['domain']
+            
+            workspace, created = WorkSpace.objects.get_or_create(
+                user=user,
+                name=name,
+                domain=domain,
+                team_id=team_id
+            )
 
     def get_workspace(self, data):
         team_id = data['team_id']
@@ -35,15 +57,11 @@ class SlackHelper(object):
         workspace = WorkSpace.objects.get(team_id=team_id, domain=domain, name=name)
         return workspace
     
-    def get_workspace_user(self, workspace, data, user=None):
+    def get_workspace_user(self, workspace, username):
         instance, created = WorkSpaceUser.objects.get_or_create(
-            username=data['user_name'],
+            username=username,
+            workspace=workspace
         )
-
-        if user:
-            instance.user = user
-
-        instance.save()
         return instance
 
     def get_channel(self, workspace, data):
@@ -57,11 +75,14 @@ class SlackHelper(object):
         return channel
 
     def create_note(self, channel, text, username):
-        return Note.objects.get_or_create(
+        user = self.get_workspace_user(workspace=channel.workspace, username=username)
+
+        instance, created = Note.objects.get_or_create(
             channel=channel,
             text=text,
-            username=username
+            username=user
         )
+        return instance
 
     def current_provider(self):
         return SocialApp.objects.get_current(provider='slack_auth')
