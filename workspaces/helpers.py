@@ -9,6 +9,7 @@ from .models import (
     WorkSpace,
     WorkSpaceChannel,
     Note,
+    WorkSpaceUser
     )
 
 class SlackHelper(object):
@@ -33,6 +34,17 @@ class SlackHelper(object):
         domain = data['team_domain']
         workspace = WorkSpace.objects.get(team_id=team_id, domain=domain, name=name)
         return workspace
+    
+    def get_workspace_user(self, workspace, data, user=None):
+        instance, created = WorkSpaceUser.objects.get_or_create(
+            username=data['user_name'],
+        )
+
+        if user:
+            instance.user = user
+
+        instance.save()
+        return instance
 
     def get_channel(self, workspace, data):
         name = data['channel_name']

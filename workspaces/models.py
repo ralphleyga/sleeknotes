@@ -37,7 +37,7 @@ class WorkSpaceUser(models.Model):
         return f'{self.user.email} - {self.username}'
     
     class Meta:
-        unique_together = ('username', 'user')
+        unique_together = ('username', 'user', 'workspace')
 
 
 class Note(models.Model):
