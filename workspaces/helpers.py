@@ -43,13 +43,13 @@ class SlackHelper(object):
             channel_id=channel_id
         )
         return channel
-    
+
     def create_note(self, channel, text, username):
         return Note.objects.get_or_create(
             channel=channel,
             text=text,
             username=username
         )
-        
+
     def current_provider(self):
         return SocialApp.objects.get_current(provider='slack_auth')
