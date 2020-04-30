@@ -136,3 +136,5 @@ tmp/
 *.bak
 *.code-workspace
 *.sublime-workspace
+
+node_modules/
