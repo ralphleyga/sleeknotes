@@ -14,6 +14,14 @@ from .models import (
     )
 
 class SlackHelper(object):
+    slack_scope = 'chat:write,chat:write.public,commands'
+    slack_user_scope = 'identity.basic,identity.email,identity.team,identity.avatar'
+    slack_protocol = 'https'
+    slack_url = '://slack.com/oauth/v2/authorize'
+    
+    def slack_authorize_url(self, redirect_uri):
+        provider = self.current_provider()
+        return f'{self.slack_protocol}{self.slack_url}?client_id={provider.client_id}&scope={self.slack_scope}&user_scope={self.slack_user_scope}&redirect_uri={redirect_uri}'
 
     def initalize_slack_token(self, slack_token=''):
         self.client = WebClient(token=slack_token, run_async=True)
@@ -29,7 +37,10 @@ class SlackHelper(object):
                 text=message)
         response = loop.run_until_complete(chat)
         return response
-        
+
+    def add_workspace(self):
+        pass
+
     def webhook_send(self, data):
         pass
     

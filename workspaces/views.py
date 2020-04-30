@@ -8,7 +8,7 @@ from .helpers import SlackHelper
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class SlackHookReceiverView(SlackHelper, View):
+class SlackHookNoteView(SlackHelper, View):
 
     def post(self, request, **kwargs):
         data = request.POST

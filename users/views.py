@@ -11,6 +11,3 @@ from .models import User
 
 class IndexView(TemplateView):
     template_name = 'index.html'
-    
-    def get(self, request, **kwargs):
-        return self.render_to_response({})
