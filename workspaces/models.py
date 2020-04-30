@@ -4,8 +4,11 @@ from django.db import models
 from django.conf import settings
 from django.dispatch import receiver
 
-from allauth.socialaccount.signals import social_account_updated
+
 from allauth.socialaccount.models import SocialAccount
+
+
+from .signals import *
 
 
 class WorkSpace(models.Model):
