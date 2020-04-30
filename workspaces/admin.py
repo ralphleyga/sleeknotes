@@ -27,4 +27,4 @@ class WorkSpaceAdmin(admin.ModelAdmin):
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'channel', 'username')
+    list_display = ('id', 'channel', 'username', 'created')

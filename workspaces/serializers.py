@@ -16,10 +16,10 @@ class NoteSerializer(serializers.ModelSerializer):
 class WorkSpaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkSpace
-        field = ('id', 'name', 'domain')
+        fields = ('id', 'name', 'domain')
 
 
-class WorkspaceChannel(serializers.ModelSerializer):
+class WorkspaceChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkSpaceChannel
         fields = '__all__'

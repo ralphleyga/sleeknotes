@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from users.views import IndexView
+from users.views import IndexView, LoginView
 from slack_auth.views import SlackLogin
 
 
@@ -27,9 +27,12 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('rest-auth/slack/', SlackLogin.as_view(), name='slack_login'),
+    path('rest-auth/slack-auth/', SlackLogin.as_view(), name='slack_login'),
 
     path('workspaces/', include('workspaces.urls')),
 
-    path('', IndexView.as_view(), name='index')
+    path('api/', include('workspaces.api_urls')),
+
+    path('', IndexView.as_view(), name='index'),
+    path('login/', IndexView.as_view(), name='slack_login'),
 ]

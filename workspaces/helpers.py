@@ -38,12 +38,6 @@ class SlackHelper(object):
         response = loop.run_until_complete(chat)
         return response
 
-    def add_workspace(self):
-        pass
-
-    def webhook_send(self, data):
-        pass
-    
     def initialize_workspace(self, user):
         user_slacks = user.socialaccount_set.filter(provider='slack_auth')
 

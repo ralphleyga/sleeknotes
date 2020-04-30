@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load socialaccount %}
+
+{% block content %}
+<h1>Welcome to Sleeknotes</h1>
+{% if request.user.is_authenticated %}
+    signed as <strong>{{ request.user.email }}</strong>
+{% else %}
+<a href="{% provider_login_url 'slack_auth' auth_params='user_scope=identity.basic,identity.email,identity.avatar,identity.team&scope=commands,chat:write,chat:write.public' %}">Sign In Slack</a>
+{% endif %}
+{% endblock %}
