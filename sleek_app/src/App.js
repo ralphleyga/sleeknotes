@@ -6,9 +6,12 @@ import { connect } from 'react-redux'
 import Home from './components/layout/Home'
 import Header from './components/layout/Header'
 import Login from './components/Login'
-import Feeds from './components/workspaces/Feeds'
+import Notes from './components/workspaces/Notes'
 import Explore from './components/workspaces/Explore'
 import Teams from './components/workspaces/Teams'
+
+// fetch datas
+import { notesFetch } from './actions/notes'
 
 
 const PrivateRoutes = ({ children, ...rest }) => {
@@ -23,6 +26,10 @@ const PrivateRoutes = ({ children, ...rest }) => {
 
 class App extends Component {
 
+  componentWillMount() {
+    this.props.notesFetch()
+  }
+
   render () {
     return (
       
@@ -34,7 +41,7 @@ class App extends Component {
                 <Route exact path='/login/' component={Login} />
 
                 <PrivateRoutes>
-                  <Route exact path='/feeds/' component={Feeds} />
+                  <Route exact path='/notes/' component={Notes} />
                   <Route exact path='/explore/' component={Explore} />
                   <Route exact path='/teams/' component={Teams} />
                   <Route exact path="/logout/">
@@ -51,11 +58,12 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
       auth: state.auth,
+      notes: state.noteReducer.notes
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-
+  notesFetch: () => dispatch(notesFetch()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

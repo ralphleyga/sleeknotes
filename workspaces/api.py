@@ -20,6 +20,9 @@ class AllNotesViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = NoteSerializer
     filter_backend = (filters.SearchFilter, DjangoFilterBackend)
     search_fields = ('channel', 'text')
+    
+    def get_queryset(self):
+        return super().get_queryset().filter(username__workspace__user=self.request.user)
 
 
 class WorkSpaceViewSet(viewsets.ReadOnlyModelViewSet):

@@ -5,7 +5,7 @@ export const userLoginFetch = user => {
     return dispatch => {
         return axios.post('rest-auth/login/', user)
                 .then(resp => {
-                    localStorage.setItem("token", resp.data.token)
+                    localStorage.setItem("token", resp.data.key)
                     localStorage.setItem('isLoggedIn', true)
                     dispatch({type: 'LOGIN_SUCCESS', payload: true })
                     dispatch({type: 'LOGIN_ERROR', payload: false})
