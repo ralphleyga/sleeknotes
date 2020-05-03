@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CardColumns from 'react-bootstrap/CardColumns'
 
 import NoteList from './NoteList'
 
@@ -10,9 +11,9 @@ class Feeds extends Component {
                 <h1>Notes</h1>
                 <p>You followed and created notes</p>
                 
-                <div className="card-columns">
+                <CardColumns>
                     <NoteList notes={this.props.notes} />
-                </div>
+                </CardColumns>
             </div>
         )
     }
