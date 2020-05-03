@@ -10,9 +10,9 @@ urlpatterns = [
 
     path('accounts/', include('slack_auth.urls')),
     path('accounts/', include('allauth.urls')),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('rest-auth/slack-auth/', SlackLogin.as_view(), name='slack_login'),
+    path('api/rest-auth/', include('rest_auth.urls')),
+    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('api/rest-auth/slack-auth/', SlackLogin.as_view(), name='slack_login'),
 
     path('workspaces/', include('workspaces.urls')),
 

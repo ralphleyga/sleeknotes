@@ -1,5 +1,6 @@
 import asyncio
 from slack import WebClient
+from django.conf import settings
 
 from allauth.socialaccount.models import (
     SocialApp,
@@ -12,6 +13,7 @@ from .models import (
     Note,
     WorkSpaceUser,
     )
+
 
 class SlackHelper(object):
     slack_scope = 'chat:write,chat:write.public,commands'

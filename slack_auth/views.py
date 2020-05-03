@@ -1,7 +1,5 @@
 import requests
 
-from django.http import HttpResponse
-
 from allauth.account.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.client import (
         OAuth2Error,
