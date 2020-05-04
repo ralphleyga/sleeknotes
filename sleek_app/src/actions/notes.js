@@ -3,13 +3,13 @@ import axios from 'axios'
 export const notesFetch = () => {
     return async dispatch => {
         let resp = await axios.get('notes')
-        return dispatch({type: 'FETCH_NOTES', payload: resp.data.results})
+        return dispatch({type: 'FETCH_NOTES', payload: resp.data})
     }
 }
 
-export const paginateNotesFetch = (number) => {
+export const paginateNotesFetch = (nextUrl) => {
     return async dispatch => {
-        let resp = await axios.get('notes?page=' + number)
-        return dispatch({type: 'FETCH_NOTES', payload: resp.data.results })
+        let resp = await axios.get(nextUrl)
+        return dispatch({type: 'FETCH_NOTES', payload: resp.data })
     }
 }

@@ -10,18 +10,20 @@ class Feeds extends Component {
     constructor(props) {
         super(props)
         this.handlePaginate = this.handlePaginate.bind(this)
-        this.counter = 1;
     }
 
-    handlePaginate() {
-        this.counter += 1
-        this.props.paginate_notes(this.counter)
+    handlePaginate(url) {
+        this.props.paginate_notes(url)
     }
 
     render() {
-        const { notes } = this.props;
+        const { notes, next_result } = this.props;
         let next = () => {
-                return (<a href='#' onClick={this.handlePaginate}>Next</a>)
+                if (next_result) {
+                    return (<a href='#' onClick={() => this.handlePaginate(next_result)}>Next</a>)
+                } else {
+                    return null
+                }
             }
 
         return (
@@ -42,7 +44,8 @@ class Feeds extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        notes: state.noteReducer.notes
+        notes: state.noteReducer.notes,
+        next_result: state.noteReducer.next_result
     }
 }
 

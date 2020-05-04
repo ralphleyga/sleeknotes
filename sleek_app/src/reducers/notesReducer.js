@@ -1,5 +1,6 @@
 const initState = {
-    notes: []
+    notes: [],
+    next_result: null,
 }
 
 const noteReducer = (state = initState, action) => {
@@ -9,8 +10,9 @@ const noteReducer = (state = initState, action) => {
                 ...state,
                 notes: [
                     ...state.notes,
-                    ...action.payload
+                    ...action.payload.results
                 ],
+                next_result: action.payload.next
             }
         default:
             return state
