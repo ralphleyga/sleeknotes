@@ -5,10 +5,12 @@ const initState = {
 const noteReducer = (state = initState, action) => {
     switch (action.type) {
         case 'FETCH_NOTES':
-            console.log(action.payload)
             return {
                 ...state,
-                notes: action.payload
+                notes: [
+                    ...state.notes,
+                    ...action.payload
+                ],
             }
         default:
             return state

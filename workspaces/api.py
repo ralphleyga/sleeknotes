@@ -2,6 +2,10 @@ from rest_framework import viewsets
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
+import logging
+logger = logging.getLogger('onboarding')
+
+
 from .models import (
         WorkSpace,
         WorkSpaceChannel,
@@ -22,6 +26,7 @@ class AllNotesViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ('channel', 'text')
     
     def get_queryset(self):
+        logger.debug('Something went wrong!')
         return super().get_queryset().filter(username__workspace__user=self.request.user)
 
 
