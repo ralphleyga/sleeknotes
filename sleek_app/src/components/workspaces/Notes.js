@@ -32,7 +32,7 @@ class Feeds extends Component {
                 <p>You followed and created notes</p>
                 
                 <CardColumns>
-                    <NoteList notes={this.props.notes} />
+                    <NoteList notes={notes} />
                 </CardColumns>
                 
                 { next() }

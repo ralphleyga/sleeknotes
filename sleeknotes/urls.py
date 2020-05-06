@@ -17,7 +17,7 @@ urlpatterns = [
     path('workspaces/', include('workspaces.urls')),
 
     path('api/', include('workspaces.api_urls')),
-
-    path('', IndexView.as_view(), name='index'),
     path('login/', LoginView.as_view(), name='slack_login'),
+    
+    path('', include('users.urls')),
 ]

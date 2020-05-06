@@ -32,7 +32,7 @@ class Header extends Component {
         const { isLoggedIn } = this.props;
 
         const externalNav = isLoggedIn ? ( null ): (
-            <Nav.Link href="/login/">Login</Nav.Link>
+            <Nav.Link as={ Link } to="/login/">Login</Nav.Link>
         )
 
         return (
