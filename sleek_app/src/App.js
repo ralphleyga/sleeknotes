@@ -14,12 +14,14 @@ import NoMatch from './components/NoMatch'
 // fetch datas
 import { notesFetch, workspaceFetch } from './actions/notes'
 
+const isLoggedIn = localStorage.getItem('isLoggedIn');
+
 function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        localStorage.getItem('isLoggedIn') ? (
+        isLoggedIn ? (
           children
         ) : (
           <Redirect
@@ -36,10 +38,12 @@ function PrivateRoute({ children, ...rest }) {
 
 class App extends Component {
 
-  componentWillMount() {
-    this.props.notesFetch()
-    this.props.workspaceFetch()
-  }
+    componentWillMount() {
+        if (isLoggedIn){
+            this.props.notesFetch()
+            this.props.workspaceFetch()
+        }
+    }
 
   render () {
 
