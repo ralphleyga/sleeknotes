@@ -25,7 +25,6 @@ def update_user_workspace(sender, **kwargs):
             social_account=user_slack
         )
 
-        import pdb; pdb.set_trace()
         # create workspace user
         workspace_user, created = WorkSpaceUser.objects.get_or_create(
             workspace=workspace,
