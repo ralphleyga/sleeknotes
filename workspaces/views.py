@@ -16,7 +16,7 @@ class SlackHookNoteView(SlackHelper, View):
 
         workspace = self.get_workspace(data)
         channel = self.get_channel(workspace, data)
-        note = self.create_note(channel=channel, text=data['text'], username=data['user_name'])
+        note = self.create_note(channel=channel, text=data['text'], username=data['user_name'], user_id=data['user_id'])
         slack_token = workspace.active_token()
         self.initalize_slack_token(slack_token=slack_token)
         self.post_message(

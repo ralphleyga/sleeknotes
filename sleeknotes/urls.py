@@ -12,12 +12,11 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api/rest-auth/', include('rest_auth.urls')),
     path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('api/rest-auth/slack-auth/', SlackLogin.as_view(), name='slack_login'),
+    path('api/rest-auth/slack-auth/', SlackLogin.as_view(), name='slack_rest_login'),
 
     path('workspaces/', include('workspaces.urls')),
-
-    path('api/', include('workspaces.api_urls')),
     path('login/', LoginView.as_view(), name='slack_login'),
+    path('api/', include('workspaces.api_urls')),
     
     path('', include('users.urls')),
 ]

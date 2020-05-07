@@ -25,10 +25,12 @@ def update_user_workspace(sender, **kwargs):
             social_account=user_slack
         )
 
+        import pdb; pdb.set_trace()
         # create workspace user
         workspace_user, created = WorkSpaceUser.objects.get_or_create(
             workspace=workspace,
-            username=data['user']['name']
+            username=data['user']['name'],
+            user_slackid=data['user']['id']
         )
 
         # update if there's existing workspace_user to connec the user account

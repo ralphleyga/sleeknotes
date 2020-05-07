@@ -3,15 +3,15 @@ from slack import WebClient
 from django.conf import settings
 
 from allauth.socialaccount.models import (
-    SocialApp,
-    SocialToken
+        SocialApp,
+        SocialAccount,
     )
 
 from .models import (
-    WorkSpace,
-    WorkSpaceChannel,
-    Note,
-    WorkSpaceUser,
+        WorkSpace,
+        WorkSpaceChannel,
+        Note,
+        WorkSpaceUser,
     )
 
 
@@ -64,11 +64,18 @@ class SlackHelper(object):
         workspace = WorkSpace.objects.get(team_id=team_id, domain=domain, name=name)
         return workspace
     
-    def get_workspace_user(self, workspace, username):
+    def get_workspace_user(self, workspace, username, user_id):
+        social_account = SocialAccount.objects.filter(uid__icontains=user_id) 
         instance, created = WorkSpaceUser.objects.get_or_create(
             username=username,
             workspace=workspace
         )
+        instance.user_slackid = user_id
+
+        if social_account:
+            instance.user = social_account.first().user
+
+        instance.save()
         return instance
 
     def get_channel(self, workspace, data):
@@ -81,8 +88,8 @@ class SlackHelper(object):
         )
         return channel
 
-    def create_note(self, channel, text, username):
-        user = self.get_workspace_user(workspace=channel.workspace, username=username)
+    def create_note(self, channel, text, username, user_id):
+        user = self.get_workspace_user(workspace=channel.workspace, username=username, user_id=user_id)
 
         instance, created = Note.objects.get_or_create(
             channel=channel,

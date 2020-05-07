@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown/with-html'
 
 import Card from 'react-bootstrap/Card'
@@ -10,14 +9,19 @@ class Note extends Component {
         const { note } = this.props;
         return (
             <Card bg='light' className='p-2'>
-                <Card.Body onClick={() => this.props.open(note)} style={{'cursor': 'pointer'}}>
-                    <ReactMarkdown
-                        source={ note.text.substring(0,400) }
-                        escapeHtml={false}
-                        />
+                <Card.Body onClick={(e) => this.props.open(e, note)} style={{'cursor': 'pointer'}} >
+                    <div>
+                        <ReactMarkdown
+                            source={ note.text.substring(0,400) }
+                            escapeHtml={false}
+                            />
+                    </div>
 
                     <Card.Text>
-                        <small className="text-muted">Last updated 3 mins ago  &middot; <strong>{ note.channel.name }</strong></small>
+                        <small className="text-muted">
+                        { note.created } ago  &middot; 
+                        <strong>{ note.workspace.name }</strong> &middot; 
+                        <strong>#{ note.channel.name }</strong></small>
                     </Card.Text>
                 </Card.Body>
             </Card>

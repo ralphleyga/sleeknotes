@@ -17,10 +17,10 @@ class Feeds extends Component {
     }
 
     render() {
-        const { notes, next_result } = this.props;
+        const { notes, next_notes_result } = this.props;
         let next = () => {
-                if (next_result) {
-                    return (<button type="button" className='btn btn-info' onClick={() => this.handlePaginate(next_result)}>More</button>)
+                if (next_notes_result) {
+                    return (<button type="button" className='btn btn-info' onClick={() => this.handlePaginate(next_notes_result)}>More</button>)
                 } else {
                     return null
                 }
@@ -47,7 +47,7 @@ class Feeds extends Component {
 const mapStateToProps = (state) => {
     return {
         notes: state.noteReducer.notes,
-        next_result: state.noteReducer.next_result
+        next_notes_result: state.noteReducer.next_notes_result
     }
 }
 

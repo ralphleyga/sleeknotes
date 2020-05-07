@@ -13,3 +13,10 @@ export const paginateNotesFetch = (nextUrl) => {
         return dispatch({type: 'FETCH_NOTES', payload: resp.data })
     }
 }
+
+export const workspaceFetch = () => {
+    return async dispatch => {
+        let resp = await axios.get('workspaces')
+        return dispatch({type: 'FETCH_WORKSPACE', payload: resp.data})
+    }
+}

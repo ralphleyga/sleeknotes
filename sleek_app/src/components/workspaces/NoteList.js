@@ -15,7 +15,8 @@ class NoteList extends Component {
         }
     }
 
-    handleModalOpen(note) {
+    handleModalOpen(e, note) {
+        e.preventDefault()
         this.setState({
             ...this.state,
             modalState: true,

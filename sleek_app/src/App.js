@@ -9,45 +9,63 @@ import Login from './components/Login'
 import Notes from './components/workspaces/Notes'
 import Explore from './components/workspaces/Explore'
 import Teams from './components/workspaces/Teams'
+import VerifyToken from './components/VerifyToken'
+import NoMatch from './components/NoMatch'
 
 // fetch datas
-import { notesFetch } from './actions/notes'
+import { notesFetch, workspaceFetch } from './actions/notes'
 
-
-const PrivateRoutes = ({ children, ...rest }) => {
-  // redirect to login
+function PrivateRoute({ children, ...rest }) {
   return (
-      localStorage.getItem('isLoggedIn') ? (
-              children
-        ) : ("")
-  )
+    <Route
+      {...rest}
+      render={({ location }) =>
+        localStorage.getItem('isLoggedIn') ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
 }
-
 
 class App extends Component {
 
   componentWillMount() {
     this.props.notesFetch()
+    this.props.workspaceFetch()
   }
 
   render () {
+
     return (
-      
         <Router history={history}>
             <Header />
             <div className="container">
               <Switch>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login/' component={Login} />
+                <Route exact path='/verify-token/' component={VerifyToken} />
 
-                <PrivateRoutes>
-                  <Route exact path='/notes/' component={Notes} />
-                  <Route exact path='/explore/' component={Explore} />
-                  <Route exact path='/teams/' component={Teams} />
-                  <Route exact path="/logout/">
+                  <PrivateRoute exact path='/notes/'>
+                    <Notes />
+                  </PrivateRoute>
+                  <PrivateRoute exact path='/notes/:noteID'>
+                    <Notes />
+                  </PrivateRoute>
+                  <PrivateRoute exact path='/explore/' component={Explore} />
+                  <PrivateRoute exact path='/teams/' component={Teams} />
+                  <PrivateRoute exact path="/logout/">
                       {this.props.auth.isLoggedIn ?<Home /> : <Redirect to="/login/" />}
-                  </Route>
-                </PrivateRoutes>
+                  </PrivateRoute>
+
+                <Route component={NoMatch} />
               </Switch>
             </div>
         </Router>
@@ -58,12 +76,14 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
       auth: state.auth,
-      notes: state.noteReducer.notes
+      notes: state.noteReducer.notes,
+      workspaces: state.noteReducer.workspaces
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  notesFetch: () => dispatch(notesFetch()),
+    notesFetch: () => dispatch(notesFetch()),
+    workspaceFetch: () => dispatch(workspaceFetch()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

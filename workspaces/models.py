@@ -43,12 +43,13 @@ class WorkSpaceChannel(models.Model):
 class WorkSpaceUser(models.Model):
     # We need model user for anonymouse users
     username = models.CharField(max_length=200) # username of user from slack
+    user_slackid = models.CharField(max_length=200, blank=True, null=True) # username of user from slack
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.DO_NOTHING)
     workspace = models.ForeignKey(WorkSpace, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.workspace.name} - {self.username}'
-    
+
     class Meta:
         unique_together = ('username', 'user', 'workspace')
 

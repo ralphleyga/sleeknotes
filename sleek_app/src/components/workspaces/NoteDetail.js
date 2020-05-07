@@ -14,7 +14,7 @@ const NoteDetail = (props) => {
     ) : null
 
     const noteChannel = note ? (
-      <small className="text-muted">Last updated 3 mins ago  &middot; <strong>{ note.channel.name }</strong></small>
+      <small className="text-muted">{ note.created } ago  &middot; <strong>{ note.workspace.name }</strong> &middot; <strong>#{ note.channel.name }</strong></small>
     ) : null
 
     return (

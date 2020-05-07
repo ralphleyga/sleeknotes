@@ -1,6 +1,7 @@
 const initState = {
     notes: [],
-    next_result: null,
+    workspaces: [],
+    next_notes_result: null,
 }
 
 const noteReducer = (state = initState, action) => {
@@ -12,7 +13,12 @@ const noteReducer = (state = initState, action) => {
                     ...state.notes,
                     ...action.payload.results
                 ],
-                next_result: action.payload.next
+                next_notes_result: action.payload.next
+            }
+        case 'FETCH_WORKSPACE':
+            return {
+                ...state,
+                workspaces: action.payload.results
             }
         default:
             return state
