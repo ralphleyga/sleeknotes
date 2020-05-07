@@ -9,7 +9,6 @@ import Login from './components/Login'
 import Notes from './components/workspaces/Notes'
 import Explore from './components/workspaces/Explore'
 import Teams from './components/workspaces/Teams'
-import VerifyToken from './components/VerifyToken'
 import NoMatch from './components/NoMatch'
 
 // fetch datas
@@ -51,7 +50,6 @@ class App extends Component {
               <Switch>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/login/' component={Login} />
-                <Route exact path='/verify-token/' component={VerifyToken} />
 
                   <PrivateRoute exact path='/notes/'>
                     <Notes />
