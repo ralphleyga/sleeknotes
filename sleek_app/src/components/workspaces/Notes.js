@@ -20,7 +20,7 @@ class Feeds extends Component {
         const { notes, next_result } = this.props;
         let next = () => {
                 if (next_result) {
-                    return (<a href='#' onClick={() => this.handlePaginate(next_result)}>Next</a>)
+                    return (<button type="button" className='btn btn-info' onClick={() => this.handlePaginate(next_result)}>More</button>)
                 } else {
                     return null
                 }
@@ -35,7 +35,9 @@ class Feeds extends Component {
                     <NoteList notes={notes} />
                 </CardColumns>
                 
-                { next() }
+                <div className='text-center mt-2 mb-4'>
+                    { next() }
+                </div>
 
             </div>
         )

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://sleeknotes.test/api/';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
 
 
 if (localStorage.getItem('token')) {

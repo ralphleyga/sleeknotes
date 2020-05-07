@@ -8,9 +8,15 @@ from .models import (
 
 
 class NoteSerializer(serializers.ModelSerializer):
+    channel = serializers.SerializerMethodField()
+
     class Meta:
         model = Note
         fields = '__all__'
+        
+    def get_channel(self, instance):
+        serializer = WorkspaceChannelSerializer(instance=instance.channel)
+        return serializer.data
 
 
 class WorkSpaceSerializer(serializers.ModelSerializer):
