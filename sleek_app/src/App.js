@@ -57,8 +57,12 @@ class App extends Component {
                   <PrivateRoute exact path='/notes/:noteID'>
                     <Notes />
                   </PrivateRoute>
-                  <PrivateRoute exact path='/explore/' component={Explore} />
-                  <PrivateRoute exact path='/teams/' component={Teams} />
+                  <PrivateRoute exact path='/explore/'>
+                    <Explore />
+                  </PrivateRoute>
+                  <PrivateRoute exact path='/teams/'>
+                    <Teams />
+                  </PrivateRoute>
                   <PrivateRoute exact path="/logout/">
                       {this.props.auth.isLoggedIn ?<Home /> : <Redirect to="/login/" />}
                   </PrivateRoute>
