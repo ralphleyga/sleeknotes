@@ -24,8 +24,10 @@ from .serializers import (
 class AllNotesViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Note.objects.all().order_by('-created')
     serializer_class = NoteSerializer
-    filter_backend = (filters.SearchFilter, DjangoFilterBackend)
-    search_fields = ('channel', 'text')
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
+    search_fields = ('text',)
+    filterset_fields = ('channel__workspace__name',)
+    
     
     def get_queryset(self):
         logger.debug('Something went wrong!')
