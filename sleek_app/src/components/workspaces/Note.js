@@ -20,8 +20,7 @@ class Note extends Component {
                     <Card.Text>
                         <small className="text-muted">
                         { note.created } ago  &middot; 
-                        <strong>{ note.workspace.name }</strong> &middot; 
-                        <strong>#{ note.channel.name }</strong></small>
+                        <strong>{ note.workspace.name }</strong></small>
                     </Card.Text>
                 </Card.Body>
             </Card>

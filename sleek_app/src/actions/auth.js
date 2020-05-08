@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export const userLoginFetch = user => {
 
+export const userLoginFetch = user => {
     return dispatch => {
         return axios.post('rest-auth/login/', user)
                 .then(resp => {

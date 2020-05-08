@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import CardColumns from 'react-bootstrap/CardColumns'
 
 import NoteList from './NoteList'
+import NoteFilterNav from './NoteFilter'
+
 import { paginateNotesFetch } from '../../actions/notes'
 
 class Feeds extends Component {
@@ -29,9 +31,10 @@ class Feeds extends Component {
         return (
             <div>
                 <h1>Notes</h1>
-                <p>You followed and created notes</p>
                 
-                <CardColumns>
+                <NoteFilterNav/>
+                
+                <CardColumns className='mt-4'>
                     <NoteList notes={notes} />
                 </CardColumns>
                 
