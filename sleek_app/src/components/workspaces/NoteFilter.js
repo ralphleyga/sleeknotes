@@ -15,8 +15,6 @@ class NoteFilterNav extends Component {
                             <option>All Team</option>
                             <option>Following</option>
                             <option>Teams Note</option>
-                            <option>4</option>
-                            <option>5</option>
                         </Form.Control>
 
                         <FormControl type="text" placeholder="Keywords..." className="mr-sm-2 ml-1" />
